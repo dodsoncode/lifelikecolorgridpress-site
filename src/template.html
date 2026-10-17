@@ -1,0 +1,552 @@
+<title>Lifelike Color Grid Press</title>
+__HEADMETA__
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600&family=Public+Sans:wght@400;600;700&display=swap">
+<style>
+/* Layout: field-guide pages, a working plate on the right of the hero, then sections down a single 1120px column.
+   Theme: Modern Naturalist (chosen Oct 17, 2026) - slate ink, tanager orange, sage on clean white. */
+:root{
+  --paper:#f7f8f8;      /* clean off-white */
+  --sheet:#ffffff;      /* the printed page */
+  --ink:#1f292e;        /* slate */
+  --muted:#5a666c;
+  --line:#dde2e4;
+  --grid:#c3cbce;       /* puzzle outlines */
+  --accent:#b4471a;     /* tanager orange, deepened to pass WCAG AA */
+  --accent-ink:#ffffff;
+  --leaf:#4f7563;       /* sage */
+  --wash:#edf1f1;
+  --font-display:"Newsreader",Georgia,"Times New Roman",serif;
+  --font-body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-mono:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --step--1:.875rem;--step-0:1.0625rem;--step-1:1.3rem;--step-2:1.7rem;--step-3:2.3rem;--step-4:clamp(2.3rem,5.4vw,3.6rem);
+  --radius:10px;
+  --display-weight:600;--display-style:normal;--display-scale:1;--label-case:uppercase;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#121719;--sheet:#192023;--ink:#e7ecee;--muted:#9eabb0;--line:#2b3438;--grid:#3f4a4f;
+  --accent:#f0804c;--accent-ink:#1a0d06;--leaf:#8dbca6;--wash:#1e272a;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#121719;--sheet:#192023;--ink:#e7ecee;--muted:#9eabb0;--line:#2b3438;--grid:#3f4a4f;
+  --accent:#f0804c;--accent-ink:#1a0d06;--leaf:#8dbca6;--wash:#1e272a;color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:var(--step-0);line-height:1.55;}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--font-display);font-weight:var(--display-weight);font-style:var(--display-style);line-height:1.12;text-wrap:balance;margin:0}
+h3{font-style:normal}
+h1{font-size:calc(var(--step-4)*var(--display-scale))} h2{font-size:calc(var(--step-3)*var(--display-scale))} h3{font-size:var(--step-1)}
+p{margin:0;max-width:62ch}
+a{color:var(--leaf)} a:hover{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:3px}
+.mono{font-family:var(--font-mono);font-size:var(--step--1);letter-spacing:.02em}
+.label{font-family:var(--font-mono);font-size:.78rem;text-transform:var(--label-case);letter-spacing:.12em;color:var(--muted)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5em;font:700 var(--step-0)/1 var(--font-body);padding:.85em 1.25em;border-radius:var(--radius);border:2px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;text-decoration:none}
+.btn:hover{background:var(--wash);color:var(--ink)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.primary:hover{filter:brightness(1.07);color:var(--accent-ink);background:var(--accent)}
+.btn[aria-disabled="true"]{opacity:.55;cursor:not-allowed}
+.btn.small{font-size:var(--step--1);padding:.6em .9em}
+
+/* header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;gap:20px;padding-block:12px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font-family:var(--font-display);font-size:1.2rem;white-space:nowrap}
+.brand svg{flex:none}
+nav.main{display:flex;gap:18px;margin-left:auto;flex-wrap:wrap}
+nav.main a{color:var(--ink);text-decoration:none;font-size:var(--step--1);font-weight:700}
+nav.main a:hover{color:var(--accent)}
+.top .btn{white-space:nowrap}
+@media (max-width:1060px){nav.main{display:none}.top .btn{margin-left:auto}}
+@media (max-width:480px){.brand{font-size:1rem;white-space:normal;line-height:1.15;min-width:0}.brand span{max-width:10em}.brand svg{width:24px;height:24px}header.top .wrap{gap:12px}.top .btn.small{padding:.55em .7em;font-size:.8rem}}
+
+/* sections */
+section{padding-block:72px;border-bottom:1px solid var(--line)}
+.sec-head{display:grid;gap:12px;margin-bottom:36px}
+.sec-head .label b{color:var(--accent);font-weight:500}
+
+/* hero */
+.hero{padding-block:48px 64px}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:48px;align-items:center}
+@media (max-width:900px){.hero .wrap{grid-template-columns:1fr;gap:32px}}
+.hero-copy{display:grid;gap:22px;min-width:0}
+.hero-copy .lede{font-size:var(--step-1);color:var(--muted);line-height:1.45}
+.facts{display:flex;flex-wrap:wrap;gap:8px 18px;padding:0;margin:0;list-style:none}
+.facts li{font-family:var(--font-mono);font-size:.82rem;color:var(--muted)}
+.facts li::before{content:"■ ";color:var(--leaf)}
+
+.signup{display:grid;gap:10px;max-width:480px}
+.signup .row{display:flex;gap:8px;flex-wrap:wrap}
+.signup input[type=email]{flex:1 1 220px;min-width:0;font:var(--step-0) var(--font-body);padding:.8em .9em;border:2px solid var(--line);border-radius:var(--radius);background:var(--sheet);color:var(--ink)}
+.signup input[type=email]:focus{border-color:var(--leaf);outline:none}
+.signup .fine{font-size:var(--step--1);color:var(--muted)}
+.key-dl{display:grid;gap:8px;justify-items:start}.key-dl .fine{font-size:var(--step--1);color:var(--muted)}.signup.bonus{border-top:1px solid var(--line);padding-top:16px;margin-top:4px}
+.signup .done{font-size:var(--step--1);color:var(--leaf);font-weight:700}
+
+/* the plate */
+.plate{background:var(--sheet);border:1px solid var(--line);border-radius:var(--radius);padding:18px;display:grid;gap:14px;min-width:0;box-shadow:0 1px 0 var(--line),0 18px 40px -28px rgba(20,40,30,.45)}
+.plate-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.plate-head h3{font-size:var(--step-1)}
+.plate-title{display:grid;gap:2px;min-width:0}
+.plate-sci{font-style:italic;color:var(--muted);font-size:var(--step--1)}
+.canvas-box{position:relative;width:100%;aspect-ratio:52/58;max-width:100%}
+.canvas-box canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:manipulation;cursor:crosshair}
+.pencils{display:flex;flex-wrap:wrap;gap:6px}
+.pencil{display:flex;align-items:center;gap:6px;border:1.5px solid var(--line);background:var(--sheet);color:var(--ink);border-radius:999px;padding:4px 10px 4px 4px;font:500 .8rem var(--font-mono);cursor:pointer}
+.pencil i{width:22px;height:22px;border-radius:50%;border:1px solid rgba(0,0,0,.18);display:block}
+.pencil[aria-pressed="true"]{border-color:var(--ink);background:var(--wash)}
+.pencil.done{opacity:.55}
+.pencil.done::after{content:"✓";color:var(--leaf);font-weight:700}
+.plate-foot{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.plate-foot .mono{color:var(--muted)}
+.switch{display:flex;gap:6px;flex-wrap:wrap}
+.switch button{border:1.5px solid var(--line);background:transparent;color:var(--ink);border-radius:var(--radius);padding:5px 9px;font:500 .78rem var(--font-mono);cursor:pointer}
+.switch button[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
+
+/* promise */
+.promise{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+@media (max-width:760px){.promise{grid-template-columns:1fr}}
+.promise div{display:grid;gap:8px;align-content:start;border-top:3px solid var(--ink);padding-top:14px;min-width:0}
+.promise p{color:var(--muted);font-size:var(--step--1)}
+
+/* book */
+.book{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:48px;align-items:start}
+@media (max-width:820px){.book{grid-template-columns:1fr}}
+.cover{aspect-ratio:8.5/11;max-width:360px;width:100%;background:var(--ink);color:var(--paper);border-radius:3px 8px 8px 3px;padding:26px 24px;display:grid;grid-template-rows:auto 1fr auto;gap:16px;box-shadow:inset 8px 0 0 rgba(0,0,0,.25),0 22px 40px -24px rgba(0,0,0,.6)}
+:root[data-theme="dark"] .cover{background:#0b100d;color:#e6ebe4}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .cover{background:#0b100d;color:#e6ebe4}}
+.cover .t{font-family:var(--font-display);font-size:1.9rem;line-height:1.05}
+.cover .s{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;opacity:.8}
+.cover-art{display:grid;grid-template-columns:1fr 1fr;border:3px solid currentColor;min-height:0}
+.cover-art img{width:100%;height:100%;object-fit:cover;display:block;image-rendering:pixelated}
+.cover-art img:first-child{filter:grayscale(1) contrast(.35) brightness(1.55)}
+.book-info{display:grid;gap:22px;min-width:0}
+.editions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:520px){.editions{grid-template-columns:1fr}}
+.edition{border:1px solid var(--line);background:var(--sheet);border-radius:var(--radius);padding:16px;display:grid;gap:6px;align-content:start}
+.edition .price{font-family:var(--font-display);font-size:var(--step-2)}
+.edition .mono{color:var(--muted)}
+.specs{width:100%;border-collapse:collapse;font-size:var(--step--1)}
+.specs th,.specs td{text-align:left;padding:8px 10px 8px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.specs th{font-family:var(--font-mono);font-weight:500;color:var(--muted);white-space:nowrap;width:9.5em}
+.cta-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.cta-row .mono{color:var(--muted)}
+
+/* free page + answers */
+.duo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+@media (max-width:820px){.duo{grid-template-columns:1fr}}
+.panel{background:var(--sheet);border:1px solid var(--line);border-radius:var(--radius);padding:26px;display:grid;gap:18px;align-content:start;min-width:0}
+.panel.answers{border:2px dashed var(--leaf)}
+.month{display:grid;grid-template-columns:120px minmax(0,1fr);gap:18px;align-items:center}
+.month img{width:120px;border:1px solid var(--line);image-rendering:pixelated}
+.qr-note{display:flex;gap:14px;align-items:center}
+.qr-note svg{flex:none}
+select{font:var(--step-0) var(--font-body);padding:.7em .8em;border:2px solid var(--line);border-radius:var(--radius);background:var(--sheet);color:var(--ink);max-width:100%}
+
+/* shop */
+.shop{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+@media (max-width:820px){.shop{grid-template-columns:1fr}}
+.item{border:1px solid var(--line);background:var(--sheet);border-radius:var(--radius);display:grid;grid-template-rows:auto 1fr;overflow:hidden}
+.item .thumbs{display:grid;grid-template-columns:repeat(3,1fr);background:var(--wash)}
+.item .thumbs img{width:100%;aspect-ratio:52/58;object-fit:cover;display:block;image-rendering:pixelated}
+.item .body{padding:16px;display:grid;gap:8px;align-content:start}
+.item .price{font-family:var(--font-display);font-size:var(--step-2)}
+.item p{color:var(--muted);font-size:var(--step--1)}
+
+/* gallery */
+.wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.wall figure{margin:0;display:grid;gap:6px}
+.wall img{width:100%;aspect-ratio:52/58;object-fit:cover;border:1px solid var(--line);background:var(--sheet);image-rendering:pixelated;display:block}
+.wall figcaption{font-size:.82rem;display:flex;justify-content:space-between;gap:6px}
+.wall figcaption span{color:var(--muted);font-family:var(--font-mono);font-size:.72rem}
+
+/* how it works */
+.how{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:start}
+@media (max-width:860px){.how{grid-template-columns:1fr}}
+.steps{display:grid;gap:22px;margin:0;padding:0;list-style:none;counter-reset:s}
+.steps li{display:grid;grid-template-columns:40px minmax(0,1fr);gap:14px;counter-increment:s}
+.steps li::before{content:counter(s);font-family:var(--font-display);font-size:1.6rem;color:var(--accent);line-height:1}
+.steps h3{margin-bottom:4px}
+.steps p{color:var(--muted);font-size:var(--step--1)}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.compare figure{margin:0;display:grid;gap:6px}
+.compare img{width:100%;aspect-ratio:52/58;object-fit:cover;border:1px solid var(--line);display:block}
+.compare img.px{image-rendering:pixelated}
+.compare figcaption{font-size:.78rem;color:var(--muted)}
+.key-wrap{overflow-x:auto;margin-top:22px}
+.key{display:grid;grid-template-columns:repeat(6,minmax(78px,1fr));gap:6px;min-width:500px}
+.key div{display:flex;align-items:center;gap:6px;font-size:.74rem;border:1px solid var(--line);border-radius:4px;padding:4px;background:var(--sheet)}
+.key b{font-family:var(--font-mono);font-weight:500;min-width:1.4em;text-align:right}
+.key i{width:16px;height:16px;border-radius:3px;flex:none;border:1px solid rgba(0,0,0,.15)}
+
+/* roadmap */
+.roadmap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin:0;padding:0;list-style:none}
+@media (max-width:860px){.roadmap{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.roadmap{grid-template-columns:1fr}}
+.roadmap li{border-left:3px solid var(--line);padding:4px 0 4px 14px;display:grid;gap:4px;align-content:start}
+.roadmap li.now{border-color:var(--accent)}
+.roadmap p{color:var(--muted);font-size:var(--step--1)}
+
+footer{padding-block:48px 64px;font-size:var(--step--1);color:var(--muted)}
+footer .wrap{display:grid;gap:28px}
+.foot-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1fr);gap:28px}
+@media (max-width:760px){.foot-grid{grid-template-columns:1fr}}
+.foot-grid h3{font-size:var(--step-0);color:var(--ink);margin-bottom:8px}
+.credits{columns:2 240px;font-size:.78rem;margin:0;padding:0;list-style:none}
+.credits li{break-inside:avoid;margin-bottom:3px}
+.preview-flag{background:var(--wash);border-bottom:1px solid var(--line);font-size:.82rem;color:var(--muted)}
+.preview-flag .wrap{padding-block:8px}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+</style>
+
+<div class="preview-flag"><div class="wrap">__BANNER__</div></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Home">
+      <svg width="30" height="30" viewBox="0 0 6 6" aria-hidden="true"><rect width="6" height="6" fill="var(--paper)"/><g fill="var(--accent)"><rect x="1" y="1" width="2" height="1"/><rect x="0" y="2" width="4" height="2"/><rect x="1" y="4" width="2" height="1"/></g><rect x="3" y="2" width="2" height="1" fill="var(--ink)"/><rect x="4" y="0" width="1" height="1" fill="var(--leaf)"/><rect x="0.5" y="0.5" width="5" height="5" fill="none" stroke="var(--ink)" stroke-width=".25"/></svg>
+      <span data-brand>Lifelike Color Grid Press</span>
+    </a>
+    <nav class="main" aria-label="Site">
+      <a href="#books">Books</a><a href="#free-page">Free page</a><a href="#answers">Answer keys</a><a href="#shop">Printables</a><a href="#gallery">Gallery</a><a href="#how">How it works</a>
+    </nav>
+    <a class="btn primary small" href="#join">Get 3 free pages</a>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero" id="join">
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="label">Wildlife color-by-number for adults</span>
+      <h1>Real wildlife, true colors, one pencil set.</h1>
+      <p class="lede">Every page starts as a real wildlife photo and ends as a mosaic you color with a standard 24-count set of colored pencils. Finish it and you are holding an animal you can name.</p>
+      <ul class="facts">
+        <li>Birds first; mammals, butterflies and more to follow</li>
+        <li>24 pencils, numbered the same in every book</li>
+        <li>Large-print editions</li>
+        <li>Free full-color answer keys</li>
+      </ul>
+      <form class="signup" data-form="starter" novalidate>
+        <label class="label" for="email-hero">Free starter pack: 3 printable plates</label>
+        <div class="row">
+          <input id="email-hero" type="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+          <button class="btn primary" type="submit">Send my pages</button>
+        </div>
+        <p class="fine">Plus <em>Field Notes</em>, one email a month with a new free page. Unsubscribe anytime.</p>
+        <p class="done" role="status" hidden></p>
+      </form>
+    </div>
+
+    <div class="plate" aria-label="Try a plate">
+      <div class="plate-head">
+        <div class="plate-title"><h3 id="plate-name">Northern Cardinal</h3><span class="plate-sci" id="plate-sci" lang="la">Cardinalis cardinalis</span></div>
+        <span class="mono" id="plate-meta">Plate 01 · 52 × 58 cells</span>
+      </div>
+      <div class="canvas-box"><canvas id="plate-canvas" role="img" aria-label="Numbered mosaic of an animal; choose a pencil below to color its cells"></canvas></div>
+      <div class="pencils" id="pencils" aria-label="Pencils used on this plate"></div>
+      <div class="plate-foot">
+        <span class="mono" id="progress">Pick a pencil to start coloring</span>
+        <div class="switch" id="switch" aria-label="Choose a bird"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="promise-h">
+  <div class="wrap">
+    <div class="sec-head"><span class="label">What makes these different</span><h2 id="promise-h">Made like a field guide, colored like a puzzle.</h2></div>
+    <div class="promise">
+      <div><h3>Real sources only</h3><p>Every plate comes from a wildlife photo or a naturalist image in the public domain, never clip art. Each photographer is credited in the back of the book.</p></div>
+      <div><h3>One number, one pencil</h3><p>Pencil 1 is always Red and 24 is always White, in every book of the series, birds or beasts. Learn the key once.</p></div>
+      <div><h3>A field-guide index</h3><p>A contents page and an A to Z species index, with each animal's name on its page, so the finished book works as a keepsake.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="books" aria-labelledby="books-h">
+  <div class="wrap">
+    <div class="sec-head"><span class="label"><b>Book 1</b> · Coming this December</span><h2 id="books-h">Backyard Birds</h2></div>
+    <div class="book">
+      <div class="cover" aria-label="Cover preview">
+        <span class="s">Color by number · 40 birds</span>
+        <div class="cover-art"><img alt="" data-img="northern_cardinal_inat_606690858"><img alt="Colored mosaic of a Northern Cardinal" data-img="northern_cardinal_inat_606690858"></div>
+        <div><div class="t">Backyard Birds</div><span class="s" data-brand>Lifelike Color Grid Press</span></div>
+      </div>
+      <div class="book-info">
+        <p>Forty common North American birds, from the American Robin to the Wood Duck, each drawn from a real photograph and tuned by hand so the colors you lay down match the bird outside your window.</p>
+        <div class="editions">
+          <div class="edition"><span class="label">Standard</span><span class="price">$10.99</span><span class="mono">8.5 × 11 in · about 50 cells across</span></div>
+          <div class="edition"><span class="label">Large print</span><span class="price">$11.99</span><span class="mono">8.5 × 11 in · 36 cells across, bigger numbers</span></div>
+        </div>
+        <table class="specs">
+          <tr><th>Pencils</th><td>Any 24-count colored pencil set. The color names inside match common sets.</td></tr>
+          <tr><th>Pages</th><td>One plate per page with its color key underneath, a contents page and an A to Z index.</td></tr>
+          <tr><th>Answer keys</th><td>Full-color keys are free online. Scan the QR code in the book.</td></tr>
+          <tr><th>Where to buy</th><td>Amazon first, then bookstores and libraries through IngramSpark.</td></tr>
+        </table>
+        <div class="cta-row">
+          <a class="btn" aria-disabled="true" data-link="amazon" href="#books">Buy on Amazon</a>
+          <a class="btn primary" href="#join">Tell me when it's out</a>
+          <span class="mono" data-status="amazon">Store links go live at launch</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section aria-label="Free page and answer keys">
+  <div class="wrap duo">
+    <div class="panel" id="free-page">
+      <span class="label">Free page of the month · <span>November 2026</span></span>
+      <div class="month">
+        <img alt="Colored picture of this month's free page, a Black-billed Magpie" src="__FREEIMG__">
+        <div style="display:grid;gap:8px;min-width:0">
+          <h3>Black-billed Magpie</h3>
+          <p style="color:var(--muted);font-size:var(--step--1)">A new plate every month, printable at home on letter paper. Subscribers get it first, a week before it goes up here.</p>
+        </div>
+      </div>
+      <form class="signup" data-form="monthly" novalidate>
+        <label class="label" for="email-month">Email me each month's page</label>
+        <div class="row"><input id="email-month" type="email" placeholder="you@example.com" autocomplete="email" required><button class="btn primary" type="submit">Subscribe</button></div>
+        <p class="done" role="status" hidden></p>
+      </form>
+    </div>
+
+    <div class="panel answers" id="answers">
+      <span class="label">Answer keys</span>
+      <div class="qr-note">
+        <svg width="56" height="56" viewBox="0 0 7 7" aria-hidden="true"><rect width="7" height="7" fill="var(--sheet)"/><g fill="var(--ink)"><rect x="0" y="0" width="3" height="3"/><rect x="4" y="0" width="3" height="3"/><rect x="0" y="4" width="3" height="3"/><rect x="4" y="4" width="1" height="1"/><rect x="5" y="5" width="2" height="1"/><rect x="4" y="6" width="1" height="1"/><rect x="6" y="4" width="1" height="1"/></g><g fill="var(--sheet)"><rect x=".5" y=".5" width="2" height="2"/><rect x="4.5" y=".5" width="2" height="2"/><rect x=".5" y="4.5" width="2" height="2"/></g><g fill="var(--ink)"><rect x="1" y="1" width="1" height="1"/><rect x="5" y="1" width="1" height="1"/><rect x="1" y="5" width="1" height="1"/></g></svg>
+        <h3>Scanned the code in your book? You're in the right place.</h3>
+      </div>
+      <p style="font-size:var(--step--1);color:var(--muted)">The book prints in black ink to keep the price down. The full-color keys for every plate are here as a free PDF, four plates to a page. No sign-up needed.</p>
+      <div class="key-dl">
+        <a class="btn primary" data-link="answers" aria-disabled="true" href="#answers">Download the Backyard Birds keys (PDF)</a>
+        <p class="fine">Large Print Color Edition: your keys are printed at the back of the book.</p>
+        <p class="fine" data-status="answers">Preview: the download opens when Book 1 is out.</p>
+      </div>
+      <form class="signup bonus" data-form="answers" novalidate>
+        <label class="label" for="email-answers">Bonus: 3 birds that aren't in the book, free</label>
+        <div class="row"><input id="email-answers" type="email" placeholder="you@example.com" autocomplete="email" required><button class="btn" type="submit">Send my bonus birds</button></div>
+        <p class="fine">You'll also get <em>Field Notes</em> monthly, with a new free page. One click unsubscribes.</p>
+        <p class="done" role="status" hidden></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section id="shop" aria-labelledby="shop-h">
+  <div class="wrap">
+    <div class="sec-head"><span class="label">Printables · Instant PDF download</span><h2 id="shop-h">Print a plate tonight</h2><p style="color:var(--muted)">The same plates as the books, as letter-size PDFs you can print as often as you like. Good for gifts, classrooms and memory-care activities.</p></div>
+    <div class="shop" id="shop-grid"></div>
+  </div>
+</section>
+
+<section id="gallery" aria-labelledby="gallery-h">
+  <div class="wrap">
+    <div class="sec-head"><span class="label">Gallery</span><h2 id="gallery-h">Plates from Book 1</h2><p style="color:var(--muted)">Finished pages from readers will join these after launch. Send yours by replying to any <em>Field Notes</em> email.</p></div>
+    <div class="wall" id="wall"></div>
+  </div>
+</section>
+
+<section id="how" aria-labelledby="how-h">
+  <div class="wrap how">
+    <div style="display:grid;gap:28px;min-width:0">
+      <div class="sec-head" style="margin:0"><span class="label">How it works</span><h2 id="how-h">From a photo to your page</h2></div>
+      <ol class="steps">
+        <li><div><h3>A real photograph</h3><p>We start from a public-domain wildlife photo where the animal fills the frame and its eye is clear.</p></div></li>
+        <li><div><h3>Matched to your pencils</h3><p>Our software maps every patch of feather or fur to the closest of the 24 standard pencils, then we touch up the eye and details by hand.</p></div></li>
+        <li><div><h3>You color, cell by cell</h3><p>Find the number, pick up that pencil, fill the cell. Light pressure lets the grid fade; layer two pencils to blend.</p></div></li>
+        <li><div><h3>Check with the key</h3><p>Compare your page with the free full-color answer key. Most plates take 2 to 4 relaxed hours.</p></div></li>
+      </ol>
+    </div>
+    <div style="display:grid;gap:12px;min-width:0">
+      <div class="compare">
+        <figure><img data-photo alt="Photograph of a male Northern Cardinal on a mossy log"><figcaption>The photo · joy4birds, CC0, via iNaturalist</figcaption></figure>
+        <figure><img class="px" data-img="northern_cardinal_inat_606690858" alt="The same cardinal as a colored mosaic"><figcaption>The plate · 13 pencils, 3,016 cells</figcaption></figure>
+      </div>
+      <span class="label" style="margin-top:12px">The pencil key, same in every book</span>
+      <div class="key-wrap"><div class="key" id="key"></div></div>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="road-h">
+  <div class="wrap">
+    <div class="sec-head"><span class="label">The wildlife series</span><h2 id="road-h">Birds first, then the rest of the field guide</h2></div>
+    <ul class="roadmap">
+      <li class="now"><span class="label">Dec 2026</span><h3>Backyard Birds</h3><p>40 common birds, standard and large print.</p></li>
+      <li><span class="label">Early 2027</span><h3>Audubon's Birds</h3><p>Mosaics made from the 1840s hand-colored plates.</p></li>
+      <li><span class="label">2027</span><h3>Backyard Wildlife</h3><p>Fox, deer, rabbit, squirrel and owls.</p></li>
+      <li><span class="label">2027</span><h3>Butterflies and Moths</h3><p>From photos and vintage natural-history plates.</p></li>
+    </ul>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div style="display:grid;gap:10px">
+        <h3><em>Field Notes</em>, the newsletter</h3>
+        <p>Once a month: the free page, one species note, one reader's finished page, and news about new books.</p>
+        <a class="btn small" href="#join" style="justify-self:start">Subscribe</a>
+      </div>
+      <div><h3>Privacy</h3><p>Your email is used only to send what you asked for and <em>Field Notes</em>. It is never sold or shared. Sign-ups are meant for adults, parents and teachers.</p></div>
+      <div><h3>Contact</h3><p>Questions about a book or a printable: <a href="mailto:admin@lifelikecolorgridpress.com">admin@lifelikecolorgridpress.com</a>, or reply to any email from us.</p><p style="margin-top:10px">© 2026 <span data-brand>Lifelike Color Grid Press</span></p></div>
+    </div>
+    <div><h3 style="font-size:var(--step-0);color:var(--ink);margin-bottom:8px">Photo credits</h3><ul class="credits" id="credits"></ul></div>
+  </div>
+</footer>
+
+<script>
+const CONFIG = {
+  brand: "Lifelike Color Grid Press",      // chosen Oct 16, 2026 (replaces Lifelike Color Grid Press)
+  kitForms: { starter: "10059973", answers: "10059985", monthly: "10060011" },  // Kit form IDs: starter = bonus birds (site), answers = bonus birds (book buyers), monthly = free page
+  answersPdf: "__ANSWERSPDF__",                       // Book 1 answer-key PDF; open download, no sign-up (decided Oct 17)
+  amazonUrl: "",                        // Book 1 Amazon link at launch
+  payhipUrl: ""                         // Payhip store link
+};
+const DATA = __DATA__;
+const PHOTO = "__PHOTO__";
+
+document.querySelectorAll("[data-brand]").forEach(e => e.textContent = CONFIG.brand);
+const byId = Object.fromEntries(DATA.plates.map(p => [p.id, p]));
+document.querySelectorAll("[data-img]").forEach(img => { const p = byId[img.dataset.img]; if (p) img.src = p.img; });
+document.querySelectorAll("[data-photo]").forEach(img => img.src = PHOTO);
+if (CONFIG.answersPdf) { const a = document.querySelector('[data-link="answers"]'); a.href = CONFIG.answersPdf; a.setAttribute("download",""); a.removeAttribute("aria-disabled"); document.querySelector('[data-status="answers"]').hidden = true; }
+else document.querySelector('[data-link="answers"]').addEventListener("click", e => e.preventDefault());
+if (CONFIG.amazonUrl) { const a = document.querySelector('[data-link="amazon"]'); a.href = CONFIG.amazonUrl; a.target = "_blank"; a.rel = "noopener"; a.removeAttribute("aria-disabled"); document.querySelector('[data-status="amazon"]').hidden = true; }
+document.querySelector('[data-link="amazon"]').addEventListener("click", e => { if (!CONFIG.amazonUrl) e.preventDefault(); });
+
+/* ---------- interactive plate ---------- */
+const SCI = {"Northern Cardinal":"Cardinalis cardinalis","Eastern Bluebird":"Sialia sialis","Scarlet Tanager":"Piranga olivacea"};
+const HERO = ["northern_cardinal_inat_606690858","eastern_bluebird_inat_323978897","scarlet_tanager_inat_658681736"];
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const cv = document.getElementById("plate-canvas"), ctx = cv.getContext("2d");
+let plate, cells, filled, jitter, active = null, anim = null;
+
+function lum(hex){const n=parseInt(hex.slice(1),16);return (0.299*(n>>16)+0.587*((n>>8)&255)+0.114*(n&255))/255}
+function shade(hex, j){const n=parseInt(hex.slice(1),16);let r=n>>16,g=(n>>8)&255,b=n&255;const f=1+j;r=Math.min(255,r*f);g=Math.min(255,g*f);b=Math.min(255,b*f);return `rgb(${r|0},${g|0},${b|0})`}
+function css(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim()}
+
+function loadPlate(id){
+  plate = byId[id];
+  cells = Array.from(plate.grid, ch => ch.charCodeAt(0) - 97);
+  filled = new Uint8Array(cells.length);
+  jitter = Float32Array.from(cells, () => (Math.random() - .5) * .14);
+  active = null;
+  document.getElementById("plate-name").textContent = plate.species;
+  document.getElementById("plate-sci").textContent = SCI[plate.species] || "";
+  const used = [...new Set(cells)].sort((a,b)=>a-b);
+  document.getElementById("plate-meta").textContent = `Plate ${String(HERO.indexOf(id)+1).padStart(2,"0")} · ${plate.cols} × ${plate.rows} cells · ${used.length} pencils`;
+  const box = document.getElementById("pencils"); box.innerHTML = "";
+  used.forEach(i => {
+    const p = DATA.palette[i], b = document.createElement("button");
+    b.className = "pencil"; b.type = "button"; b.dataset.i = i; b.setAttribute("aria-pressed","false");
+    b.title = p.name; b.innerHTML = `<i style="background:${p.hex}"></i>${p.n}`;
+    b.setAttribute("aria-label", `${p.n} ${p.name}`);
+    b.onclick = () => colorPencil(i);
+    box.appendChild(b);
+  });
+  const all = document.createElement("button"); all.className="pencil"; all.type="button"; all.innerHTML="Color it all"; all.style.paddingLeft="10px";
+  all.onclick = () => { used.forEach(i => fillNow(i)); updateUI(); draw(); };
+  const reset = document.createElement("button"); reset.className="pencil"; reset.type="button"; reset.innerHTML="Erase"; reset.style.paddingLeft="10px";
+  reset.onclick = () => { filled.fill(0); active=null; updateUI(); draw(); };
+  box.append(all, reset);
+  document.querySelectorAll("#switch button").forEach(b => b.setAttribute("aria-pressed", b.dataset.id === id));
+  updateUI(); resize();
+}
+function fillNow(i){cells.forEach((c,k)=>{if(c===i)filled[k]=1})}
+function colorPencil(i){
+  active = i;
+  const idx = []; cells.forEach((c,k)=>{ if(c===i && !filled[k]) idx.push(k) });
+  if (reduce || !idx.length){ fillNow(i); updateUI(); draw(); return; }
+  idx.sort((a,b)=> (a%plate.cols + (a/plate.cols|0)) - (b%plate.cols + (b/plate.cols|0)) + (Math.random()-.5)*14);
+  cancelAnimationFrame(anim); const t0 = performance.now(), dur = Math.min(900, 250 + idx.length*1.2);
+  (function step(t){ const n = Math.min(idx.length, Math.ceil(idx.length * (t - t0) / dur)); for(let k=0;k<n;k++) filled[idx[k]] = 1; draw(); if(n < idx.length) anim = requestAnimationFrame(step); else updateUI(); })(t0);
+  updateUI();
+}
+function updateUI(){
+  const used = [...new Set(cells)]; let done = 0;
+  document.querySelectorAll("#pencils .pencil[data-i]").forEach(b => {
+    const i = +b.dataset.i, all = cells.every((c,k)=> c!==i || filled[k]);
+    if (all) done++;
+    b.classList.toggle("done", all); b.setAttribute("aria-pressed", String(active === i));
+  });
+  const pct = Math.round(100 * filled.reduce((a,b)=>a+b,0) / cells.length);
+  document.getElementById("progress").textContent = pct === 0 ? "Pick a pencil, or tap a cell, to color" : done === 0 ? `${pct}% colored · tap a pencil to finish` : done === used.length ? `Finished: ${plate.species}` : `${done} of ${used.length} pencils · ${pct}% colored`;
+}
+function resize(){
+  const r = cv.getBoundingClientRect(), dpr = Math.min(2, devicePixelRatio || 1);
+  cv.width = Math.round(r.width * dpr); cv.height = Math.round(r.height * dpr); draw();
+}
+function draw(){
+  if(!plate) return;
+  const W = cv.width, H = cv.height, cw = W / plate.cols, ch = H / plate.rows;
+  const sheet = css("--sheet"), grid = css("--grid"), muted = css("--muted");
+  ctx.fillStyle = sheet; ctx.fillRect(0,0,W,H);
+  const showNums = cw >= 13;
+  ctx.font = `500 ${Math.round(ch*0.5)}px ${css("--font-mono")}`; ctx.textAlign="center"; ctx.textBaseline="middle";
+  for(let k=0;k<cells.length;k++){
+    const x = (k % plate.cols) * cw, y = (k / plate.cols | 0) * ch, c = cells[k];
+    if (filled[k]) { ctx.fillStyle = shade(DATA.palette[c].hex, jitter[k]); ctx.fillRect(x, y, cw+.5, ch+.5); }
+    else if (showNums) { ctx.fillStyle = muted; ctx.fillText(DATA.palette[c].n, x+cw/2, y+ch/2+.5); }
+    else { /* faint hint of the picture so the plate reads at small sizes */ ctx.globalAlpha = .13; ctx.fillStyle = DATA.palette[c].hex; ctx.fillRect(x,y,cw+.5,ch+.5); ctx.globalAlpha = 1; }
+  }
+  ctx.strokeStyle = grid; ctx.lineWidth = Math.max(1, cw/14); ctx.beginPath();
+  for(let i=0;i<=plate.cols;i++){ ctx.moveTo(i*cw,0); ctx.lineTo(i*cw,H); }
+  for(let j=0;j<=plate.rows;j++){ ctx.moveTo(0,j*ch); ctx.lineTo(W,j*ch); }
+  ctx.stroke();
+}
+cv.addEventListener("click", e => {
+  const r = cv.getBoundingClientRect(), c = Math.floor((e.clientX-r.left)/r.width*plate.cols), rr = Math.floor((e.clientY-r.top)/r.height*plate.rows);
+  const k = rr*plate.cols + c; if (k>=0 && k<cells.length) colorPencil(cells[k]);
+});
+const sw = document.getElementById("switch");
+HERO.forEach(id => { const b = document.createElement("button"); b.type="button"; b.dataset.id=id; b.textContent = byId[id].species.split(" ").pop(); b.setAttribute("aria-label", byId[id].species); b.onclick = () => loadPlate(id); sw.appendChild(b); });
+new ResizeObserver(resize).observe(cv);
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", draw);
+new MutationObserver(draw).observe(document.documentElement, {attributes:true, attributeFilter:["data-theme"]});
+
+if (document.fonts) document.fonts.ready.then(draw);
+loadPlate(HERO[0]);
+// open on a half-colored plate so the first view shows the before and after
+cells.forEach((c,k)=>{ if((k%plate.cols) >= plate.cols/2) filled[k]=1 }); updateUI(); draw();
+
+/* ---------- shop, gallery, key, credits ---------- */
+const keeps = DATA.plates.filter(p => p.status === "keep");
+const shop = [
+  {t:"Songbird Pack", n:"10 plates", price:"$6", d:"Ten colorful backyard birds as printable PDFs, standard and large-print grids included.", ids:["eastern_bluebird_inat_323978897","american_goldfinch_inat_339455469","tufted_titmouse_inat_456947672"]},
+  {t:"Single plates", n:"1 plate", price:"$2–3", d:"Any bird from the books as a single page. Print one for every grandchild.", ids:["blue_jay_inat_215650488"]},
+  {t:"Winter Birds Bundle", n:"30 plates", price:"$12–15", d:"Cardinals, jays and woodpeckers for the holidays. A gift you can print the night before.", ids:["northern_cardinal_inat_606690858","red_headed_woodpecker_inat_603198677","blue_grosbeak_inat_672705223"]}
+];
+document.getElementById("shop-grid").innerHTML = shop.map(s => `
+  <article class="item"><div class="thumbs">${[0,1,2].map(i=>{const p=byId[s.ids[i%s.ids.length]];return `<img alt="${i===0?p.species:""}" src="${p.img}">`}).join("")}</div>
+  <div class="body"><span class="label">${s.n}</span><h3>${s.t}</h3><span class="price">${s.price}</span><p>${s.d}</p>
+  <a class="btn small" aria-disabled="true" href="#shop" data-shop>Opens with Book 1</a></div></article>`).join("");
+document.querySelectorAll("[data-shop]").forEach(a => { if (CONFIG.payhipUrl){ a.href=CONFIG.payhipUrl; a.target="_blank"; a.rel="noopener"; a.removeAttribute("aria-disabled"); a.textContent="Buy on our shop"; } else a.addEventListener("click", e => e.preventDefault()); });
+document.getElementById("wall").innerHTML = keeps.map((p,i) => `<figure><img src="${p.img}" alt="Colored mosaic of a ${p.species}"><figcaption>${p.species}<span>${String(i+1).padStart(2,"0")}</span></figcaption></figure>`).join("");
+document.getElementById("key").innerHTML = DATA.palette.map(p => `<div><b>${p.n}</b><i style="background:${p.hex}"></i>${p.name}</div>`).join("");
+document.getElementById("credits").innerHTML = keeps.map(p => `<li>${p.species}: <a href="${p.page}" target="_blank" rel="noopener">${p.author}</a>, CC0</li>`).join("");
+
+/* ---------- forms ---------- */
+document.querySelectorAll("form[data-form]").forEach(f => f.addEventListener("submit", e => {
+  e.preventDefault();
+  const input = f.querySelector('input[type=email]'), out = f.querySelector(".done");
+  out.hidden = false;
+  if (!input.value || !input.checkValidity()) { out.style.color = "var(--accent)"; out.textContent = "Enter an email address like name@example.com."; input.focus(); return; }
+  out.style.color = "";
+  const id = CONFIG.kitForms[f.dataset.form];
+  if (!id || location.protocol === "file:" || /claude\.ai|claudeusercontent/.test(location.hostname)) { out.textContent = "Preview only: nothing was sent. Sign-up works on the live site."; return; }
+  const btn = f.querySelector("button"); btn.disabled = true; out.textContent = "Sending…";
+  const body = new FormData(); body.append("email_address", input.value.trim());
+  fetch(`https://app.kit.com/forms/${id}/subscriptions`, { method: "POST", body, headers: { Accept: "application/json" } })
+    .then(r => r.ok ? r.json() : Promise.reject(r.status))
+    .then(() => { out.textContent = "Almost done: check your inbox and tap the confirm button. (Look in Promotions or spam if it isn't there in a few minutes.)"; input.value = ""; })
+    .catch(() => { out.style.color = "var(--accent)"; out.textContent = "That didn't go through. Please try again in a minute, or email admin@lifelikecolorgridpress.com."; })
+    .finally(() => { btn.disabled = false; });
+}));
+</script>
