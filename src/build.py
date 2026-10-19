@@ -145,8 +145,8 @@ def answers_page():
 <ol class="steps"><li>Color a page using the pencil names in its color key.</li><li>Stuck on a cell, or curious how it should look? Check the matching key.</li><li>Print a key in color, or keep it open on a phone or tablet beside you.</li></ol>
 <div class="panel answers">
   <form class="signup" data-kit="{FORM_BONUS_BOOK}" novalidate>
-    <label class="label" for="email-bonus">Bonus: 3 birds that aren't in the book, free</label>
-    <div class="row"><input id="email-bonus" type="email" placeholder="you@example.com" autocomplete="email" required><button class="btn" type="submit">Send my bonus birds</button></div>
+    <label class="label" for="email-bonus">Bonus: 3 color-by-number pages that aren't in the book, free</label>
+    <div class="row"><input id="email-bonus" type="email" placeholder="you@example.com" autocomplete="email" required><button class="btn" type="submit">Send my bonus pages</button></div>
     <p class="fine">You'll also get <em>Field Notes</em> monthly, with a new free page. One click unsubscribes. Your email is never sold or shared.</p>
     <p class="done" role="status" hidden></p>
   </form>
@@ -158,13 +158,13 @@ def bonus_page():
     figs = "".join(f'<figure><img src="../{img}" alt="Finished picture of a {name}" {wh(img)}><figcaption>{name}</figcaption></figure>'
                    for name, img in BONUS["birds"])
     body = f"""<span class="label">You're confirmed</span>
-<h1>Here are your 3 bonus birds</h1>
+<h1>Here are your 3 bonus pages</h1>
 <p class="lead">Thanks for joining. Print the pages on letter paper and color with any 24-count set of colored pencils. Each picture has its color key underneath, and the finished pictures are at the back.</p>
 <div class="thumbs3">{figs}</div>
-<div class="dl"><a class="btn primary" href="../{BONUS['pdf']}" download>Download the bonus birds (PDF)</a>
+<div class="dl"><a class="btn primary" href="../{BONUS['pdf']}" download>Download the bonus pages (PDF)</a>
 <p class="fine">Personal use: print as many copies as you like for yourself, your family or your classroom.</p></div>
 <p class="fine"><em>Field Notes</em> arrives once a month with a new free page. Reply to any email to say hello or send a finished page.</p>"""
-    return subpage("Your bonus birds | Lifelike Color Grid Press", "bonus-birds/", body)
+    return subpage("Your bonus pages | Lifelike Color Grid Press", "bonus-birds/", body)
 
 
 def free_page():

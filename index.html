@@ -243,10 +243,10 @@ html{scroll-behavior:smooth;scroll-padding-top:70px}
         <li>Free full-color answer keys</li>
       </ul>
       <form class="signup" data-form="starter" novalidate>
-        <label class="label" for="email-hero">Free starter pack: 3 printable plates</label>
+        <label class="label" for="email-hero">Free bonus pack: 3 color-by-number pages</label>
         <div class="row">
           <input id="email-hero" type="email" name="email" placeholder="you@example.com" autocomplete="email" required>
-          <button class="btn primary" type="submit">Send my pages</button>
+          <button class="btn primary" type="submit">Send my bonus pages</button>
         </div>
         <p class="fine">Plus <em>Field Notes</em>, one email a month with a new free page. Unsubscribe anytime.</p>
         <p class="done" role="status" hidden></p>
@@ -341,8 +341,8 @@ html{scroll-behavior:smooth;scroll-padding-top:70px}
         <p class="fine" data-status="answers">Preview: the download opens when Book 1 is out.</p>
       </div>
       <form class="signup bonus" data-form="answers" novalidate>
-        <label class="label" for="email-answers">Bonus: 3 birds that aren't in the book, free</label>
-        <div class="row"><input id="email-answers" type="email" placeholder="you@example.com" autocomplete="email" required><button class="btn" type="submit">Send my bonus birds</button></div>
+        <label class="label" for="email-answers">Bonus: 3 color-by-number pages that aren't in the book, free</label>
+        <div class="row"><input id="email-answers" type="email" placeholder="you@example.com" autocomplete="email" required><button class="btn" type="submit">Send my bonus pages</button></div>
         <p class="fine">You'll also get <em>Field Notes</em> monthly, with a new free page. One click unsubscribes.</p>
         <p class="done" role="status" hidden></p>
       </form>
@@ -417,7 +417,7 @@ html{scroll-behavior:smooth;scroll-padding-top:70px}
 <script>
 const CONFIG = {
   brand: "Lifelike Color Grid Press",      // chosen Oct 16, 2026 (replaces Lifelike Color Grid Press)
-  kitForms: { starter: "10059973", answers: "10059985", monthly: "10060011" },  // Kit form IDs: starter = bonus birds (site), answers = bonus birds (book buyers), monthly = free page
+  kitForms: { starter: "10059973", answers: "10059985", monthly: "10060011" },  // Kit form IDs: starter = bonus pages (site), answers = bonus pages (book buyers), monthly = free page
   answersPdf: "files/backyard-birds-answer-keys.pdf",                       // Book 1 answer-key PDF; open download, no sign-up (decided Oct 17)
   amazonUrl: "",                        // Book 1 Amazon link at launch
   payhipUrl: ""                         // Payhip store link
